@@ -1,6 +1,6 @@
 # --- CONFIGURACION DE IDENTIDAD Y VERSION ---
 $VersionLocal = "1.0"
-$LinkMaestro = "TU_LINK_RAW_DE_GITHUB_AQUI" # <--- PEGA TU LINK "RAW" DE GITHUB ACA
+$LinkMaestro = "https://raw.githubusercontent.com/caliptogalaxity/IvanToolbox/refs/heads/main/IvanToolBox.ps1" # <--- PEGA TU LINK "RAW" DE GITHUB ACA
 
 # --- FUNCION DE AUTO-ACTUALIZACION ---
 function Comprobar-Actualizacion {
