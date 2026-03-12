@@ -1,5 +1,5 @@
 # --- CONFIGURACION DE VERSION ---
-$VersionLocal = "3.2026:1"
+$VersionLocal = "3.2026:2"
 $LinkMaestro = "https://raw.githubusercontent.com/caliptogalaxity/IvanToolbox/main/IvanToolBox.ps1"
 
 # --- LOGICA DE ACTUALIZACION ---
@@ -57,6 +57,10 @@ function Mostrar-Menu {
     Write-Host " [2] REPARAR TIENDA      -> Soluciona errores de la Microsoft Store."
     Write-Host " [3] REVO UNINSTALLER    -> Desinstalacion limpia sin dejar rastros."
 
+    Write-Host "`n--- [ COMPLEMENTOS DE SISTEMA ] ---" -ForegroundColor Yellow
+    Write-Host " [20] MICROSOFT OFFICE   -> Suite completa (Word, Excel, PowerPoint)."
+    Write-Host " [21] LIBRERIAS RUNTIMES -> Visual C++ y DirectX (Para juegos y DLLs)."
+
     Write-Host "`n--- [ NAVEGACION E INTERNET ] ---" -ForegroundColor Cyan
     Write-Host " [4] GOOGLE CHROME       -> El navegador mas rapido y compatible."
     Write-Host " [5] BRAVE BROWSER       -> Privacidad extrema y bloqueo de avisos."
@@ -94,6 +98,19 @@ while ($true) {
         "1"  { Ejecutar-Mantenimiento }
         "2"  { wsreset.exe; Write-Host "Tienda reiniciada."; Pause }
         "3"  { winget install --id RevoSolution.RevoUninstaller --silent; Pause }
+        "20" { 
+                Write-Host "`n> Instalando Microsoft Office..." -ForegroundColor Cyan
+                winget install --id Microsoft.Office --silent --accept-package-agreements --accept-source-agreements
+                Write-Host "LISTO!" -ForegroundColor Green
+                Pause 
+             }
+        "21" { 
+                Write-Host "`n> Instalando Librerias Criticas (Visual C++ y DirectX)..." -ForegroundColor Cyan
+                winget install --id Microsoft.VCRedist.2015+.x64 --silent --accept-package-agreements
+                winget install --id Microsoft.DirectX --silent --accept-package-agreements
+                Write-Host "SISTEMA ACTUALIZADO CON LIBRERIAS ESENCIALES." -ForegroundColor Green
+                Pause 
+             }
         "4"  { winget install --id Google.Chrome --silent; Pause }
         "5"  { winget install --id Brave.Brave --silent; Pause }
         "6"  { winget install --id Mozilla.Firefox --silent; Pause }
