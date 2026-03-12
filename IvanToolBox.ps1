@@ -1,8 +1,8 @@
-# --- CONFIGURACION DE IDENTIDAD ---
+# --- CONFIGURACION ---
 $VersionLocal = "1.0"
 $LinkMaestro = "https://raw.githubusercontent.com/caliptogalaxity/IvanToolbox/main/IvanToolBox.ps1"
 
-# --- FUNCION DE ACTUALIZACION SEGURA ---
+# --- ACTUALIZACION AMIGABLE ---
 function Comprobar-Actualizacion {
     try {
         $web = New-Object System.Net.WebClient
@@ -11,8 +11,8 @@ function Comprobar-Actualizacion {
             $vRemota = $Matches[1]
             if ([version]$vRemota -gt [version]$VersionLocal) {
                 Write-Host "`n #################################################" -ForegroundColor Yellow
-                Write-Host "  NUEVA VERSION DISPONIBLE ($vRemota)" -ForegroundColor Green
-                Write-Host "  Descarga el nuevo archivo de tu GitHub."
+                Write-Host "  NUEVA VERSION DISPONIBLE EN GITHUB ($vRemota)" -ForegroundColor Green
+                Write-Host "  Descarga el nuevo archivo para estar al dia."
                 Write-Host " #################################################`n" -ForegroundColor Yellow
                 Start-Sleep -Seconds 2
             }
