@@ -1,0 +1,37 @@
+=====================================================
+    INSTRUCCIONES DE ACTUALIZACIÓN - IVAN TOOLBOX
+=====================================================
+
+Si al abrir el programa viste el cartel de:
+"¡NUEVA VERSIÓN DISPONIBLE EN GITHUB!"
+
+Sigue estos pasos para tener las últimas mejoras:
+
+PASO 1: ACCEDER AL CÓDIGO NUEVO
+--------------------------------
+1. Haz clic derecho en el link de abajo y elige "Abrir" (o cópialo en tu navegador):
+   https://raw.githubusercontent.com/caliptogalaxity/IvanToolbox/main/IvanToolBox.ps1
+
+2. Se abrirá una página blanca con mucho texto (ese es el código nuevo).
+
+PASO 2: COPIAR EL CÓDIGO
+-------------------------
+1. En esa página blanca, presiona la tecla CTRL y la letra A al mismo tiempo (CTRL + A) para seleccionar todo.
+2. Luego presiona CTRL y la letra C (CTRL + C) para copiar todo el texto.
+
+PASO 3: ACTUALIZAR TU ARCHIVO
+------------------------------
+1. Busca el archivo "IvanToolBox.ps1" en tu computadora.
+2. Hazle CLIC DERECHO y elige "Abrir con..." -> "Bloc de notas" (o "Abrir con VS Code" si lo tienes).
+3. Borra todo lo que hay adentro.
+4. Presiona CTRL y la letra V (CTRL + V) para pegar el código nuevo que copiaste.
+5. Ve a "Archivo" -> "Guardar" (o presiona CTRL + S).
+
+¡LISTO!
+-------
+Ya puedes cerrar el bloc de notas y ejecutar tu Ivan Toolbox como siempre. 
+Ahora tendrás la versión más reciente con todas las mejoras y programas nuevos.
+
+=====================================================
+Ivan Toolbox | Soporte Técnico Caseros - Haedo
+=====================================================
