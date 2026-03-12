@@ -1,23 +1,47 @@
-# --- CONFIGURACION ---
-$VersionLocal = "1.0"
+# --- CONFIGURACION DE VERSION ---
+# Formato sugerido por Iván: Mes.Año:Correlativo
+$VersionLocal = "3.2026:1"
 $LinkMaestro = "https://raw.githubusercontent.com/caliptogalaxity/IvanToolbox/main/IvanToolBox.ps1"
 
-# --- ACTUALIZACION AMIGABLE ---
+# --- LOGICA DE ACTUALIZACION ---
 function Comprobar-Actualizacion {
     try {
         $web = New-Object System.Net.WebClient
         $codigoRemoto = $web.DownloadString($LinkMaestro)
         if ($codigoRemoto -match '\$VersionLocal = "(.*)"') {
             $vRemota = $Matches[1]
-            if ([version]$vRemota -gt [version]$VersionLocal) {
+            # Limpiamos caracteres para comparar como números
+            $vRemotaNum = $vRemota -replace '[:\.]', ''
+            $vLocalNum = $VersionLocal -replace '[:\.]', ''
+            
+            if ([long]$vRemotaNum -gt [long]$vLocalNum) {
                 Write-Host "`n #################################################" -ForegroundColor Yellow
-                Write-Host "  NUEVA VERSION DISPONIBLE EN GITHUB ($vRemota)" -ForegroundColor Green
-                Write-Host "  Descarga el nuevo archivo para estar al dia."
+                Write-Host "  NUEVA ACTUALIZACION DISPONIBLE: $vRemota" -ForegroundColor Green
+                Write-Host "  Descarga el nuevo codigo para estar al dia."
                 Write-Host " #################################################`n" -ForegroundColor Yellow
-                Start-Sleep -Seconds 2
+                Start-Sleep -Seconds 3
             }
         }
     } catch { }
+}
+
+# --- FUNCION DE MANTENIMIENTO ---
+function Ejecutar-Mantenimiento {
+    Write-Host "`n[+] Iniciando limpieza profunda de basura..." -ForegroundColor Cyan
+    $rutas = @("C:\Windows\Temp\*", "$env:TEMP\*", "C:\Windows\Prefetch\*")
+    foreach ($ruta in $rutas) {
+        Write-Host " > Eliminando rastros en: $ruta" -ForegroundColor Gray
+        Remove-Item -Path $ruta -Recurse -Force -ErrorAction SilentlyContinue
+    }
+    Write-Host "[+] Vaciando Papelera de Reciclaje..." -ForegroundColor Cyan
+    Clear-RecycleBin -Force -ErrorAction SilentlyContinue
+    
+    Write-Host "[+] Optimizando Memoria RAM..." -ForegroundColor Cyan
+    [System.GC]::Collect()
+    [System.GC]::WaitForPendingFinalizers()
+    
+    Write-Host "`n¡SISTEMA OPTIMIZADO PARA CASEROS-HAEDO!" -ForegroundColor Green
+    Pause
 }
 
 # --- ELEVACION ---
@@ -30,7 +54,7 @@ function Mostrar-Banner {
     Clear-Host
     Write-Host "#####################################################" -ForegroundColor Cyan
     Write-Host "      IVAN TOOLBOX: EL KIT DEFINITIVO PARA TU PC     " -ForegroundColor White -BackgroundColor DarkMagenta
-    Write-Host "      Version: $VersionLocal | Caseros-Haedo Pro       " -ForegroundColor Gray
+    Write-Host "      Revision: $VersionLocal | Zona Oeste Pro       " -ForegroundColor Gray
     Write-Host "#####################################################" -ForegroundColor Cyan
 }
 
@@ -38,43 +62,29 @@ Comprobar-Actualizacion
 
 while ($true) {
     Mostrar-Banner
-    Write-Host "`n--- ARCHIVOS Y UTILIDADES ---" -ForegroundColor Cyan
-    Write-Host " [1]  WinRAR            -> Abre archivos comprimidos."
-    Write-Host " [2]  7-Zip             -> Compresor gratuito y liviano."
-    Write-Host " [17] MSI Afterburner  -> Mira temperatura de tu video."
-    Write-Host " [18] Revo Uninstaller -> Borra programas sin basura."
-    Write-Host " [10] Reparar Tienda   -> Arregla la Microsoft Store."
-    
+    Write-Host "`n--- MANTENIMIENTO ---" -ForegroundColor Yellow
+    Write-Host " [20] LIMPIEZA TOTAL (Temp, Basura y RAM)" -ForegroundColor Yellow -BackgroundColor Black
+    Write-Host " [10] Reparar Tienda Microsoft"
+    Write-Host " [18] Revo Uninstaller (Desinstalador Pro)"
+
     Write-Host "`n--- INTERNET Y REDES ---" -ForegroundColor Yellow
-    Write-Host " [3]  Google Chrome     -> El navegador mas famoso."
-    Write-Host " [4]  Brave             -> Navegador que quita anuncios."
-    Write-Host " [5]  Firefox           -> Navegador seguro y privado."
-    Write-Host " [8]  Telegram          -> Mensajeria rapida para PC."
-    Write-Host " [9]  Discord           -> Habla mientras juegas."
-    
-    Write-Host "`n--- JUEGOS Y DIVERSION ---" -ForegroundColor Green
-    Write-Host " [6]  Steam             -> La tienda de juegos mas grande."
-    Write-Host " [7]  Epic Games        -> Juegos gratis cada semana."
-    Write-Host " [13] RetroArch        -> Consola para juegos viejos."
-    Write-Host " [14] Mesen            -> El mejor emulador NES/GB."
-    Write-Host " [15] Roblox           -> Mundos para jugar y crear."
-    Write-Host " [12] BlueStacks       -> Usa apps de celular en PC."
-    
+    Write-Host " [3] Chrome  [4] Brave  [5] Firefox  [8] Telegram  [9] Discord"
+
+    Write-Host "`n--- JUEGOS Y UTILIDADES ---" -ForegroundColor Green
+    Write-Host " [6] Steam  [7] Epic Games  [13] RetroArch  [14] Mesen  [15] Roblox"
+    Write-Host " [12] BlueStacks  [17] MSI Afterburner [1] WinRAR [2] 7-Zip"
+
     Write-Host "`n--- SEGURIDAD Y NUBE ---" -ForegroundColor Magenta
-    Write-Host " [11] Kaspersky Free   -> Antivirus potente y liviano."
-    Write-Host " [16] pCloud           -> Disco en internet para fotos."
-    
+    Write-Host " [11] Kaspersky Free  [16] pCloud"
+
     Write-Host "`n [19] SALIR" -ForegroundColor Red
     Write-Host "=====================================================" -ForegroundColor Cyan
-    
+
     $op = Read-Host "Selecciona una opcion"
 
     if ($op -eq "19") { exit }
-    if ($op -eq "10") {
-        wsreset.exe
-        Write-Host "Tienda reiniciada." -ForegroundColor Green
-        Pause ; continue
-    }
+    if ($op -eq "20") { Ejecutar-Mantenimiento; continue }
+    if ($op -eq "10") { wsreset.exe; Write-Host "Tienda reiniciada."; Pause; continue }
 
     $appId = switch ($op) {
         "1"  { "RARLab.WinRAR" }
@@ -101,9 +111,6 @@ while ($true) {
         Write-Host "`n> Instalando: $appId" -ForegroundColor Cyan
         winget install --id $appId --silent --accept-package-agreements --accept-source-agreements
         Write-Host "LISTO!" -ForegroundColor Green
-        Read-Host "Enter para volver..."
-    } else {
-        Write-Host "Opcion invalida." -ForegroundColor Red
-        Start-Sleep -Seconds 1
+        Pause
     }
 }
